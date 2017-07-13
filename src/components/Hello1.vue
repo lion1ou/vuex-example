@@ -1,8 +1,8 @@
 <template>
     <div class="hello">
-        <h1>{{ msg }}</h1>
-        <h2>{{count}}</h2>
-        <h3>最近记录：{{recentHistory}}</h3>
+        <h1>{{ msg }}1</h1>
+        <h2>{{$store.state.count}}</h2>
+        <h3>最近记录：{{$store.state.history}}</h3>
         <button @click="increment">加1</button>
         <button @click="decrement">减1</button>
         <button @click="incrementIfOdd">奇数加1</button>
@@ -12,11 +12,6 @@
     </div>
 </template>
 <script>
-import {
-    mapGetters,
-    mapActions
-} from 'vuex'
-
 export default {
     name: 'hello',
     data() {
@@ -25,21 +20,26 @@ export default {
             num: '',
         }
     },
-    computed: mapGetters([
-        'count',
-        'recentHistory'
-    ]),
     methods: {
-        ...mapActions([
-            'increment',
-            'decrement',
-            'incrementIfOdd',
-            'incrementAsync',
-            'incrementNum'
-        ]),
-
+        increment() {
+            this.$store.dispatch('increment');
+        },
+        decrement() {
+            this.$store.dispatch('decrement');
+        },
+        incrementIfOdd() {
+            this.$store.dispatch('incrementIfOdd');
+        },
+        incrementAsync() {
+            this.$store.dispatch('incrementAsync');
+        },
+        incrementNum() {
+            this.$store.dispatch('incrementNum', this.num);
+        },
+    },
+    mounted() {
+        console.log(this.$store.state.history);
     }
-
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
